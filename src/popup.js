@@ -81,6 +81,10 @@ function updateProgress(count, total) {
     document.getElementById('progress-text').innerText = `${count} / ${total}`;
 }
 
+function sanitizeFilename(filename) {
+    return filename.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+}
+
 function downloadZipFile(content) {
     // Check cbz or zip from checkbox ternary operator
     let cbz = document.getElementById('cbz').checked;
@@ -91,13 +95,16 @@ function downloadZipFile(content) {
     // Create a URL from the Blob
     let url = URL.createObjectURL(newContent);
 
+    // Sanitize the filename
+    let sanitizedTitle = sanitizeFilename(title);
+
     // Use Chrome Downloads API to download the file
     chrome.downloads.download({
         url: url,
-        filename: title.replace(/ /g, '_') + (cbz ? '.cbz' : '.zip'),
+        filename: sanitizedTitle + (cbz ? '.cbz' : '.zip'),
     }, function(downloadId) {
         if (chrome.runtime.lastError) {
-            console.error('Failed to download zip file', chrome.runtime.lastError);
+            console.error('Failed to download zip file', chrome.runtime.lastError.message);
         } else {
             console.log('Zip file downloaded with ID:', downloadId);
         }
