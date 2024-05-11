@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>H</title>
+</head>
+<body>
+
+    <p id="warning">Needs to be on https://nhentai.net/g/****** or wait to load</p>
+
+    <label for="input" style="display: none">File name</label>
+    <input type="text" id="input" style="display: none"/>
+    <label for="cbz" style="display: none">Download as CBZ?</label>
+    <input type="checkbox" id="cbz" style="display: none" checked/>
+    <button id="download" style="display: none">Download</button>
+
+    <div id="progress-bar" style="width: 0; height: 20px; background-color: #4CAF50; display: none"></div>
+    <p id="progress-text" style="display: none">0 / 0</p>
+
+</body>
+<script src="src/popup.js"></script>
+<script src="src/jszip.js"></script>
+</html>
